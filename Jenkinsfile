@@ -10,26 +10,26 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                bat 'mvn clean package -DskipTests'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t voting-system .'
+                bat 'docker build -t voting-system .'
             }
         }
 
         stage('Docker Push') {
             steps {
-                sh 'docker tag voting-system sourabhip/voting-system'
-                sh 'docker push sourabhip/voting-system'
+                bat 'docker tag voting-system sourabhip/voting-system'
+                bat 'docker push sourabhip/voting-system'
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s/deployment.yaml'
+                bat 'kubectl apply -f k8s/deployment.yaml'
             }
         }
     }
